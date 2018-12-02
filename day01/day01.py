@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-           
+
+
 def first_part():
-    alist = [line.rstrip() for line in open('input.txt')]
+    alist = [line.rstrip() for line in open("input.txt")]
     freq = 0
 
     firstround = True
@@ -22,7 +23,7 @@ def first_part():
         if firstround:
             print("Sum of list: ", freq)
             firstround = False
-        
+
     print("final frequency: ", freq)
 
 
