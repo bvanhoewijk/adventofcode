@@ -49,7 +49,7 @@ def common(string1, string2):
 
 if __name__ == "__main__":
     alist = [line.rstrip() for line in open("input.txt")]
-    # part1(alist)
+    part1(alist)
     
     # Imagine the data as a matrix we have to fill in:
     for i in range(0, len(alist)):
