@@ -48,8 +48,8 @@ def part2(alist):
         for j in range(i + 1, len(alist)):
             d = distance(alist[i], alist[j])
             if d == 1:
-                print(alist[i], alist[j])
-                print(common(alist[i], alist[j]))
+                print("Strings with distance 1: ", alist[i], alist[j])
+                print("Common characters      : ", common(alist[i], alist[j]))
 
 
 def common(string1, string2):
