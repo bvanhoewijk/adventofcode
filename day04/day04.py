@@ -53,6 +53,8 @@ if __name__ == "__main__":
     list_of_dates = [parse_input(line.rstrip()) for line in open("input.txt")]
     list_of_dates = sorted(list_of_dates, key=lambda k: k["datetime"])
     guard_sleep = minutes_asleep(list_of_dates)
+
+    # Ugly ugly for loop, but gets the job done:
     max_sleep = 0
     the_guard = None
     for guard in guard_sleep:
@@ -67,7 +69,10 @@ if __name__ == "__main__":
         "Guard #%s slept the most with %s minutes! At most at minute %s"
         % (guardname, max_sleep, most_asleep)
     )
-    print("Code for part1 %s x %s = %s" % (guardname, most_asleep, guardname * most_asleep))
+    print(
+        "Code for part1 %s x %s = %s"
+        % (guardname, most_asleep, guardname * most_asleep)
+    )
 
     print("--------")
     ## Part2
@@ -76,8 +81,12 @@ if __name__ == "__main__":
     guard_id = guardnames[np.argmax(max_per_guard)]
     print("Max per guard %s" % np.max(max_per_guard))
     print("Guardname with max minutes a sleep: %s" % guard_id)
-    print("Minute most asleep                : %s"
+    print(
+        "Minute most asleep                : %s"
         % np.argmax(guard_sleep[guard_id]["timetable"])
     )
-    print("Code for part2                    : %s" % (guard_id * np.argmax(guard_sleep[guard_id]["timetable"])))
+    print(
+        "Code for part2                    : %s"
+        % (guard_id * np.argmax(guard_sleep[guard_id]["timetable"]))
+    )
 
