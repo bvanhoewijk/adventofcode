@@ -55,8 +55,9 @@ if __name__ == "__main__":
     guard_sleep = minutes_asleep(list_of_dates)
 
     # Ugly ugly for loop, but gets the job done:
+    guardname = None
+    timetable = None
     max_sleep = 0
-    the_guard = None
     for guard in guard_sleep:
         if guard_sleep[guard]["minutes"] > max_sleep:
             max_sleep = guard_sleep[guard]["minutes"]
