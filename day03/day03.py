@@ -7,7 +7,7 @@ from pprint import pprint
 # 3 @ 5,5: 2x2
 def parse_input(line):
     fabric = dict()
-    m = re.search("^#(\d+) @ (\d+),(\d+): (\d+)x(\d+)", line)
+    m = re.search(r"^#(\d+) @ (\d+),(\d+): (\d+)x(\d+)", line)
     fabric["id"] = int(m.group(1))
     fabric["xpos"] = int(m.group(2))
     fabric["ypos"] = int(m.group(3))
