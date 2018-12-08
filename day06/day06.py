@@ -27,11 +27,13 @@ def closest(coordinate, x, y):
 
     return closest_spot
 
+
 def part2(coordinate, x, y):
     dist = 0
     for i in range(len(x)):
         dist += abs(coordinate[0] - x[i]) + abs(coordinate[1] - y[i])
     return dist
+
 
 if __name__ == "__main__":
     x, y = parse_input("input.txt")
@@ -60,7 +62,7 @@ if __name__ == "__main__":
     area = 0
     for i in range(ymax + 1):
         for j in range(xmax + 1):
-             dist = part2((j, i), x, y)
-             if dist < 10000:
-                 area += 1
+            dist = part2((j, i), x, y)
+            if dist < 10000:
+                area += 1
     print("Part2 area: ", area)
