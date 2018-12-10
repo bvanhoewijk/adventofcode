@@ -12,47 +12,48 @@ def parse_inputfile(inputfile):
     # position=< 9,  1> velocity=< 0,  2>
     xposition = []
     yposition = []
-    velocity = []
+    velocityx = []
+    velocityy = []
     for line in open(inputfile):
         m = re.search(r"position=<(.*\d+),(.*\d+)> velocity=<(.*\d+),(.*\d+)>", line)
         xposition.append(int(m.group(1)))
         yposition.append(int(m.group(2)))
-        velocity.append([int(m.group(3)), int(m.group(4))])
+        velocityx.append(int(m.group(3)))
+        velocityy.append(int(m.group(4)))
 
-    return xposition, yposition, velocity
+
+    return xposition, yposition, velocityx, velocityy
 
 
-def updateposition(xposition, yposition, velocity):
+def updateposition(xposition, yposition, velocityx, velocityy):
     for i in range(len(xposition)):
-        xposition[i] += velocity[i][0]
-        yposition[i] += velocity[i][1]
+        xposition[i] += velocityx[i]
+        yposition[i] += velocityy[i]
     return xposition, yposition
 
 
 if __name__ == "__main__":
 
-    input_file = "small.txt"
-    xposition, yposition, velocity = parse_inputfile(input_file)
+    input_file = "input.txt"
+    xposition, yposition, velocityx, velocityy = parse_inputfile(input_file)
 
     boxsizes = []
     for i in range(30000):
-        xposition, yposition = updateposition(xposition, yposition, velocity)
+        xposition, yposition = updateposition(xposition, yposition, velocityx, velocityy)
         boxsizes.append(max(xposition) - min(xposition) + max(yposition) - min(yposition))
 
     imin = np.argmin(boxsizes)
 
     print("Have to wait %s seconds" % (imin + 1))
-    xposition, yposition, velocity = parse_inputfile(input_file)
-    # for _ in range(imin + 1):
-    #     xposition, yposition = updateposition(xposition, yposition, velocity)
+    xposition, yposition, velocityx, velocityy = parse_inputfile(input_file)
 
     for i in range(len(xposition)):
-        xposition[i] = xposition[i] + ((imin+1) * velocity[i][0])
-        yposition[i] = yposition[i] + ((imin+1) * velocity[i][1])
+        xposition[i] = xposition[i] + ((imin+1) * velocityx[i])
+        yposition[i] = (yposition[i] + ((imin+1) * velocityy[i])) *-1 # Flip the image
 
-    for i in range(len(xposition)):
-        xposition[i] = xposition[i] 
-        yposition[i] = yposition[i] * -1 # Flip the image
+    # for i in range(len(xposition)):
+    #     xposition[i] = xposition[i] 
+    #     yposition[i] = yposition[i] * -1 
     plt.plot(xposition, yposition, "bo")
     plt.show()
 
