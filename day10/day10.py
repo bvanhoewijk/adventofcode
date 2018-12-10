@@ -5,46 +5,46 @@ import numpy as np
 
 def parse_inputfile(inputfile):
     # position=< 9,  1> velocity=< 0,  2>
-    xposition = []
-    yposition = []
-    velocityx = []
-    velocityy = []
+    x_pos = []
+    y_pos = []
+    vx = []
+    vy = []
     for line in open(inputfile):
         m = re.search(r"position=<(.*\d+),(.*\d+)> velocity=<(.*\d+),(.*\d+)>", line)
-        xposition.append(int(m.group(1)))
-        yposition.append(int(m.group(2)))
-        velocityx.append(int(m.group(3)))
-        velocityy.append(int(m.group(4)))
+        x_pos.append(int(m.group(1)))
+        y_pos.append(int(m.group(2)))
+        vx.append(int(m.group(3)))
+        vy.append(int(m.group(4)))
 
-    return xposition, yposition, velocityx, velocityy
+    return x_pos, y_pos, vx, vy
 
 if __name__ == "__main__":
 
     input_file = "input.txt"
-    xposition, yposition, velocityx, velocityy = parse_inputfile(input_file)
+    x_pos, y_pos, vx, vy = parse_inputfile(input_file)
 
     boxsizes = []
     for i in range(30000):
-        # xposition, yposition = updateposition(xposition, yposition, velocityx, velocityy)
-        for j in range(len(xposition)):
-            xposition[j] += velocityx[j]
-            yposition[j] += velocityy[j]
+        # x_pos, y_pos = updateposition(x_pos, y_pos, vx, vy)
+        for j in range(len(x_pos)):
+            x_pos[j] += vx[j]
+            y_pos[j] += vy[j]
         boxsizes.append(
-            max(xposition) - min(xposition) + max(yposition) - min(yposition)
+            max(x_pos) - min(x_pos) + max(y_pos) - min(y_pos)
         )
 
     imin = np.argmin(boxsizes)
 
     print("Have to wait %s seconds" % (imin + 1))
-    xposition, yposition, velocityx, velocityy = parse_inputfile(input_file)
+    x_pos, y_pos, vx, vy = parse_inputfile(input_file)
 
-    for i in range(len(xposition)):
-        xposition[i] = xposition[i] + ((imin + 1) * velocityx[i])
-        yposition[i] = (
-            yposition[i] + ((imin + 1) * velocityy[i])
+    for i in range(len(x_pos)):
+        x_pos[i] = x_pos[i] + ((imin + 1) * vx[i])
+        y_pos[i] = (
+            y_pos[i] + ((imin + 1) * vy[i])
         ) * -1  # Flip the image
 
-    plt.plot(xposition, yposition, "bo")
+    plt.plot(x_pos, y_pos, "bo")
     plt.show()
 
 
